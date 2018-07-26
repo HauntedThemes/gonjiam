@@ -1,0 +1,32 @@
+    <footer class="site-footer clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    {{#if @labs.subscribers}}
+                    <div class="row">
+                        <div class="col-xl-6 col-md-8 mr-auto ml-auto">
+                            <h3>Newsletter</h3>
+                            <div class="subscribe-container">
+                                <p>Subscribe to our newsletter to receive our latest news.</p>
+                                {{subscribe_form
+                                    form_class="gh-signin"
+                                    input_class="gh-input"
+                                    placeholder="Your email address"
+                                }}
+                            </div>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid copyright">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p>&copy; {{date format="YYYY"}}, <a href="{{@blog.url}}">{{@blog.title}}</a>. All Right Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="go-up btn"><i class="fas fa-arrow-up"></i></a>

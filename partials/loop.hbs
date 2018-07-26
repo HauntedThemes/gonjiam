@@ -1,0 +1,9 @@
+{{!-- This is the post loop - each post will be output using this markup --}}
+<article class="{{post_class}}" data-id={{comment_id}}>
+    <div class="post-inner-content">
+        <p><a href="{{url}}" class="post-title" title="{{title}}"><strong>{{title}}</strong></a> - {{excerpt words="10"}}</p>
+    </div>
+    <div class="post-meta">
+        <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMMM YYYY"}}</time> - <span class="tags">{{tags limit=1}}</span>
+    </div>
+</article>
