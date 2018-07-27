@@ -1,32 +1,26 @@
 <header>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <div class="col-3 ml-auto">
-                <div class="blog-logo">
-                    <a href="{{@blog.url}}" title="{{@blog.title}}">
-                        {{#if @blog.logo}} <img src="{{@blog.logo}}" alt="{{@blog.title}}" /> {{else}}<span>{{@blog.title}}</span>{{/if}} 
-                    </a>
-                </div>
-            </div>
-            <div class="col-9 text-right">
-                <div class="inner">
-                    <div class="navigation">
-                        <a href="#" class="navigation-trigger" data-toggle="modal" data-target="#menu">
-                            menu
-                        </a>
-                        {{navigation}}
+            <div class="col-md-8 mr-auto ml-auto">
+                <div class="row">
+                    <div class="col-3 ml-auto">
+                        <div class="blog-logo">
+                            <a href="{{@blog.url}}" title="{{@blog.title}}">
+                                {{#if @blog.logo}} <img src="{{@blog.logo}}" alt="{{@blog.title}}" /> {{else}}<span>{{@blog.title}}</span>{{/if}} 
+                            </a>
+                        </div>
                     </div>
-                    <a href="#" data-toggle="modal" data-target="#search" class="search-trigger">search</a>
-                    <a href="#" data-toggle="modal" data-target="#bookmark" class="bookmark-trigger"><span class="counter hidden"></span><i class="far fa-bookmark"></i><i class="fas fa-bookmark"></i></a>
+                    <div class="col-9 text-right">
+                        <div class="inner">
+                            <div class="navigation">
+                                {{navigation}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    {{#is "post"}}
-    <div class="info-bar">
-        <div class="progress"></div>
-    </div>
-    {{/is}}
 </header>
 
 <!-- Search Modal -->
