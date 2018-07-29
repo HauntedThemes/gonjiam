@@ -16,6 +16,14 @@ jQuery(document).ready(function($) {
         h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
         readLaterPosts = [];
 
-   
+   $('.drawer-trigger').on('click', function(event) {
+       event.preventDefault();
+       $('.drawer').toggleClass('active');
+   });
+
+    $('body').on('click', '.modal-backdrop', function(event) {
+        event.preventDefault();
+        $('.modal.show .close').click();
+    });
 
 });

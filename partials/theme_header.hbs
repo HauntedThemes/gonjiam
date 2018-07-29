@@ -3,18 +3,25 @@
         <div class="row">
             <div class="col-md-8 mr-auto ml-auto">
                 <div class="row">
-                    <div class="col-3 ml-auto">
+                    <div class="col-9 ml-auto">
                         <div class="blog-logo">
                             <a href="{{@blog.url}}" title="{{@blog.title}}">
                                 {{#if @blog.logo}} <img src="{{@blog.logo}}" alt="{{@blog.title}}" /> {{else}}<span>{{@blog.title}}</span>{{/if}} 
                             </a>
                         </div>
                     </div>
-                    <div class="col-9 text-right">
+                    <div class="col-3 text-right">
                         <div class="inner">
                             <div class="navigation">
                                 {{navigation}}
                             </div>
+                            <a href="#" class="drawer-trigger" data-toggle="modal" data-target="#drawer">
+                                <svg width="18" height="4" viewBox="0 0 18 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 0C3.104 0 4 0.896 4 2C4 3.104 3.104 4 2 4C0.896 4 0 3.104 0 2C0 0.896 0.896 0 2 0Z" transform="translate(7)" fill="#555"/>
+                                    <path d="M2 0C3.104 0 4 0.896 4 2C4 3.104 3.104 4 2 4C0.896 4 0 3.104 0 2C0 0.896 0.896 0 2 0Z" fill="#555"/>
+                                    <path d="M2 0C3.104 0 4 0.896 4 2C4 3.104 3.104 4 2 4C0.896 4 0 3.104 0 2C0 0.896 0.896 0 2 0Z" transform="translate(14)" fill="#555"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -23,97 +30,29 @@
     </div>
 </header>
 
-<!-- Search Modal -->
-<!-- <div class="modal fade" id="search" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="drawer" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <a href="#" data-dismiss="modal" aria-label="Close" class="close btn">
                     <i class="fas fa-times"></i>
                 </a>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <form class="search">
-                                <input id="search-field" placeholder="Search" autocomplete="off"/>
-                            </form>
-                            <div id="results" class="loop"></div>
+                <h3 class="title">Search</h3>
+                <form class="search">
+                    <input id="search-field" placeholder="Search" autocomplete="off"/>
+                </form>
+                <div id="results" class="loop"></div>
+                <h3 class="title">Bookmarks</h3>
+                <div class="loop">
+                {{#get "posts" limit="5"}}
+                    {{#foreach posts}}
+                        <div class="item">
+                            {{> "loop"}}
                         </div>
-                    </div>
+                    {{/foreach}}
+                {{/get}}
                 </div>
             </div>
         </div>
     </div>
-</div> -->
-
-<!-- Bookmark Modal -->
-<!-- <div class="modal fade" id="bookmark" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <a href="#" data-dismiss="modal" aria-label="Close" class="close btn">
-                    <i class="fas fa-times"></i>
-                </a>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3 class="modal-title">Bookmarks</h3>
-                            <div class="bookmark-container">
-                                <p class="no-bookmarks">You haven't yet saved any bookmarks. To bookmark a post, just click <i class="far fa-bookmark"></i>.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<!-- Menu Modal -->
-<!-- <div class="modal fade" id="menu" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <a href="#" data-dismiss="modal" aria-label="Close" class="close btn">
-                    <i class="fas fa-times"></i>
-                </a>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3 class="modal-title">Menu</h3>
-                            <div class="modal-nav"></div>
-                        </div>
-                    </div>
-                    <div class="row additional">
-                        <div class="col-sm-12">
-                            {{#if @labs.subscribers}}
-                                <h3 class="modal-title">Newsletter</h3>
-                                <div class="subscribe-container">
-                                    <p>Subscribe to our newsletter to receive our latest news.</p>
-                                    {{subscribe_form
-                                        form_class="gh-signin"
-                                        input_class="gh-input"
-                                        placeholder="Your email address"
-                                    }}
-                                </div>
-                            {{/if}}
-                            <h3 class="modal-title">Social</h3>
-                            <ul class="share">
-                                {{#if @blog.facebook}}
-                                    <li><a href="{{facebook_url}}" class="facebook" target="_blank" data-toggle="tooltip" data-placement="top" title="{{@blog.facebook}}"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-                                {{/if}}
-                                {{#if @blog.twitter}}
-                                    <li><a href="{{twitter_url}}" class="twitter" target="_blank" data-toggle="tooltip" data-placement="top" title="{{@blog.twitter}}"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                                {{/if}}
-                                <li><a href="https://www.youtube.com/" class="youtube" title="Youtube" target="_blank" data-toggle="tooltip" data-placement="top"><i class="fab fa-youtube" aria-hidden="true"></i></a></li>
-                                <li><a href="https://www.instagram.com/" class="instagram" title="Instagram" target="_blank" data-toggle="tooltip" data-placement="top"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                                <li><a href="https://plus.google.com" class="google-plus" title="Google+" target="_blank" data-toggle="tooltip" data-placement="top"><i class="fab fa-google-plus-g"></i></a></li>
-                                <li><a href="{{@blog.url}}/rss" target="_blank" data-toggle="tooltip" data-placement="top" title="RSS"><i class="fas fa-rss" aria-hidden="true" data-toggle="tooltip" data-placement="top"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+</div>

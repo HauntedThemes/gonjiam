@@ -2,11 +2,15 @@
 <article class="{{post_class}}" data-id={{comment_id}}>
     <div class="post-inner-content">
         <p>
-        	<a href="{{url}}" class="post-title" title="{{encode title}}"><strong>{{title}}</strong></a> - {{excerpt words="10"}}
-        	<a href="https://twitter.com/share?text={{encode title}}&amp;url={{url absolute="true"}}" class="twitter" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;" data-toggle="tooltip" data-placement="right" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+        	<a href="{{url}}" class="post-title" title="{{encode title}}"><strong>{{title}}</strong></a> - {{excerpt words="15"}}
         </p>
     </div>
     <div class="post-meta">
-        <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMMM YYYY"}}</time> - <span class="tags">{{tags limit=1}}</span>
+        <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMMM YYYY"}}</time><span class="tags">{{tags limit=1}}</span>
+        <div class="inner">
+        	<a href="{{url absolute="true"}}#disqus_thread" class="count-comments"></a>
+        	<a href="https://twitter.com/share?text={{encode title}}&amp;url={{url absolute="true"}}" class="twitter" onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;" data-toggle="tooltip" data-placement="right" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+        	<a href="#" class="read-later"><i class="far fa-bookmark"></i></a>
+        </div>
     </div>
 </article>
