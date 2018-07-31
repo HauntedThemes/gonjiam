@@ -21,6 +21,7 @@
                                     <path d="M2 0C3.104 0 4 0.896 4 2C4 3.104 3.104 4 2 4C0.896 4 0 3.104 0 2C0 0.896 0.896 0 2 0Z" fill="#555"/>
                                     <path d="M2 0C3.104 0 4 0.896 4 2C4 3.104 3.104 4 2 4C0.896 4 0 3.104 0 2C0 0.896 0.896 0 2 0Z" transform="translate(14)" fill="#555"/>
                                 </svg>
+                                <span class="counter"></span>
                             </a>
                         </div>
                     </div>
@@ -35,18 +36,19 @@
         <div class="modal-content">
             <div class="modal-body">
                 <a href="#" data-dismiss="modal" aria-label="Close" class="close btn">
-                    <i class="fas fa-times"></i>
+                    <i class="far fa-times-circle"></i>
                 </a>
                 <div class="widget">
                     <h3 class="title">Search</h3>
                     <form class="search">
                         <input id="search-field" placeholder="Search" autocomplete="off"/>
+                        <span class="close-search"><i class="far fa-times-circle"></i></span>
                     </form>
                     <div id="results" class="loop"></div>
                 </div>
                 <h3 class="title">Bookmarks</h3>
-                <div class="loop bookmark-container">
-                    <p class="no-bookmarks">You haven't yet saved any bookmarks. To bookmark a post, just click <i class="far fa-bookmark"></i>.</p>
+                <div class="loop bookmark-container no-bookmarks">
+                    <p>You haven't yet saved any bookmarks. To bookmark a post, just click <i class="far fa-bookmark"></i>.</p>
                 </div>
                 <span class="modal-inner-backdrop"></span>
             </div>

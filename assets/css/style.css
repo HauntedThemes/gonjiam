@@ -386,6 +386,30 @@ header .drawer-trigger{
     margin-left: 22px;
     height: 30px;
     width: 30px;
+    position: relative;
+}
+
+header .drawer-trigger .counter{
+    color: #929292;
+    outline: 0;
+    font-weight: 400;
+    background-color: transparent;
+    border: 1px solid rgba(27,31,35,0.15);
+    box-shadow: 0 0 1px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.03);
+    font-size: 11px;
+    position: absolute;
+    top: 28px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+header .drawer-trigger .counter:empty{
+    display: none;
 }
 
 .loop{
@@ -712,7 +736,10 @@ footer .copyright p{
 
 .modal .loop .item{
 	width: 100%;
-	padding-right: 0;
+}
+
+.modal .loop .item:nth-child(2n){
+    padding-right: 15px;
 }
 
 .modal .widget:first-of-type h3.title{
@@ -725,6 +752,27 @@ footer .copyright p{
 
 .modal .widget{
     position: relative;
+}
+
+.modal .widget .close-search{
+    position: absolute;
+    top: 6px;
+    right: 15px;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.modal.search-focus .widget .close-search{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
 }
 
 .modal .search{
@@ -773,17 +821,26 @@ footer .copyright p{
     pointer-events: all;
 }
 
-.modal #results .item{
+.modal .item{
     padding: 15px;
     border-top: 1px solid #e0e0e0;
     background: rgba(224, 224, 224, 0.1);
 }
 
-.modal #results .item:first-child{
+.modal .item:first-child{
     border-top: none;
+    border-radius: 5px 5px 0 0;
 }
 
-.modal #results .item:nth-child(2n+1){
+.modal .item:last-child{
+    border-radius: 0 0 5px 5px;
+}
+
+.modal .item:first-child:last-child{
+    border-radius: 5px;
+}
+
+.modal .item:nth-child(2n+1){
     background: #fff;
 }
 
@@ -813,15 +870,16 @@ footer .copyright p{
 
 .modal .bookmark-container{
     margin: 0;
-    padding: 50px 15px;
     border: 1px solid #e0e0e0;
     background: rgba(224, 224, 224, 0.1);
     border-radius: 5px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
 }
 
-.modal .bookmark-container p{
+.modal .bookmark-container.no-bookmarks{
+    padding: 50px 15px;
+}
+
+.modal .bookmark-container.no-bookmarks p{
     margin: 0;
+    text-align: center;
 }
