@@ -148,7 +148,8 @@ a:hover{
 
 p{
     font-weight: 300;
-    font-size: 14px;
+    font-size: 15px;
+    line-height: 27px;
 }
 
 iframe{
@@ -326,6 +327,10 @@ h6{
    2. Header
    ========================================================================== */
 
+.main-container{
+    overflow: hidden;
+}
+
 #content{
     padding: 100px 15px 0 15px;
 }
@@ -438,7 +443,7 @@ header .drawer-trigger .counter:empty{
     border-bottom: 1px dotted #b5b5b5;
 }
 
-.loop .post-meta{
+.post-meta{
     font-size: 13px;
     line-height: 13px;
     color: #b5b5b5;
@@ -446,30 +451,31 @@ header .drawer-trigger .counter:empty{
     align-items: center;
 }
 
-.loop .post-meta a{
+.post-meta a{
 	margin-left: 10px;
 }
 
-.loop .post-meta .tags a{
-	color: #929292;
-	outline: 0;
-	border-radius: 5px;
-	position: relative;
-	background: #fff;
-	font-weight: 400;
-	background-color: transparent;
-	border: 1px solid rgba(27,31,35,0.15);
-	padding: 3px 6px;
-	display: inline-flex;
-	box-shadow: 0 0 1px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.03);
-	font-size: 13px;
+.tags a{
+    color: #929292;
+    outline: 0;
+    border-radius: 5px;
+    position: relative;
+    background: #fff;
+    font-weight: 400;
+    background-color: transparent;
+    border: 1px solid rgba(27,31,35,0.15);
+    padding: 0px 6px;
+    display: inline-flex;
+    box-shadow: 0 0 1px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.03);
+    font-size: 13px;
+    line-height: 23px;
 }
 
-.loop .post-meta .twitter{
+.post-meta .twitter{
     color: #1da1f2;
 }
 
-.loop .post-meta .inner{
+.post-meta .inner{
 	opacity: 0;
 	margin-left: auto;
     -webkit-transition: all 0.3s ease-in-out;
@@ -478,7 +484,7 @@ header .drawer-trigger .counter:empty{
     transition: all 0.3s ease-in-out;
 }
 
-.loop .post-meta .inner .count-comments{
+.post-meta .inner .count-comments{
 	font-weight: 400;
 	font-size: 12px;
 	color: #929292;
@@ -522,11 +528,14 @@ header .drawer-trigger .counter:empty{
 }
 
 .intro.has-bg{
-	padding: 30px;
-	margin-left: -30px;
-	width: calc(100% + 60px);
-	border-radius: 5px;
-	position: relative;
+    padding: 30px;
+    margin-left: -30px;
+    width: calc(100% + 60px);
+    border-radius: 5px;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .intro.has-bg:before{
@@ -539,6 +548,7 @@ header .drawer-trigger .counter:empty{
     z-index: 1;
     background: #dcf6ff;
     opacity: .7;
+    border-radius: 5px;
 }
 
 .intro h1{
@@ -667,9 +677,7 @@ h3.title{
 }
 
 .subscribe-container p{
-    font-weight: 300;
     margin-bottom: 10px;
-    font-size: 13px;
 }
 
 .drawer{
@@ -882,4 +890,72 @@ footer .copyright p{
 .modal .bookmark-container.no-bookmarks p{
     margin: 0;
     text-align: center;
+}
+
+.feature-image img{
+    margin: 30px 0;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+h1.post-title{
+    margin: 0 0 10px 0;
+    padding: 0;
+    font-size: 32px;
+}
+
+.editor-content{
+    margin-top: 100px;
+}
+
+.editor-content ol,
+.editor-content ul{
+    padding-left: 15px;
+}
+
+.related-posts{
+    border-bottom: 1px solid rgba(27,31,35,0.15);
+    padding-bottom: 100px;
+}
+
+.related-posts .loop{
+    margin: 0;
+}
+
+.editor-content img{
+    max-width: 100%;
+    height: auto;
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+    margin: 10px 0;
+}
+
+.editor-content img.kg-image-wide{
+    max-width: 140%;
+}
+
+.editor-content img.kg-image-full{
+    max-width: 100vw;
+}
+
+.editor-content .kg-image-card{
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.editor-content .kg-image-card img{
+    margin: 0;
+}
+
+.editor-content p,
+.editor-content ul,
+.editor-content ol{
+    margin-bottom: 30px;
+}
+
+.editor-content figcaption{
+    border-bottom: 1px solid rgba(27,31,35,0.15);
+    padding: 10px 0;
 }
