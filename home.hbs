@@ -7,7 +7,7 @@
 		<div class="col-md-8 mr-auto ml-auto">
 			{{#get "users" id="1" as |user|}}
 				{{#user}}
-					<section class="intro {{#if cover_image}}has-bg" style="background-image: url({{img_url cover_image}}){{/if}}">
+					<section class="intro">
 						<div class="intro-meta">
 							{{#if profile_image}}
 	                    	<figure class="intro-image">
@@ -32,9 +32,7 @@
 			<h3 class="title">Latest posts</h3>
 			<div class="loop">
 				{{#foreach posts}}
-					<div class="item">
-						{{> "loop"}}
-					</div>
+					{{> "loop"}}
 				{{/foreach}}
 		    </div>
 		    {{pagination}}

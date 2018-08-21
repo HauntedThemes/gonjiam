@@ -5,11 +5,11 @@
 jQuery(document).ready(function($) {
 
   var config = {
-      'share-selected-text': true,
-      'load-more': true,
-      'infinite-scroll': false,
-      'infinite-scroll-step': 1,
-      'disqus-shortname': 'hauntedthemes-demo'
+    'share-selected-text': true,
+    'load-more': true,
+    'infinite-scroll': false,
+    'infinite-scroll-step': 999,
+    'disqus-shortname': 'hauntedthemes-demo'
   };
 
   var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
@@ -34,6 +34,86 @@ jQuery(document).ready(function($) {
     $('.modal.show .close').click();
   });
 
+  // Execute on load
+  $(window).on('load', function(event) {
+
+    var currentPage = 1;
+    var pathname = window.location.pathname;
+    var $result = $('.post');
+    var step = 0;
+
+    // remove hash params from pathname
+    pathname = pathname.replace(/#(.*)$/g, '').replace('/\//g', '/');
+
+    if ($('body').hasClass('paged')) {
+        currentPage = parseInt(pathname.replace(/[^0-9]/gi, ''));
+    }
+
+    // Load more posts on click
+    if (config['load-more']) {
+
+        $('#load-posts').addClass('visible').removeClass('hidden');
+
+        $('#load-posts').on('click', function(event) {
+            event.preventDefault();
+
+            if (currentPage == maxPages) {
+                $('#load-posts').addClass('hidden');
+                return;
+            };
+
+            var $this = $(this);
+
+            // next page
+            currentPage++;
+
+            if ($('body').hasClass('paged')) {
+                pathname = '/';
+            };
+
+            // Load more
+            var nextPage = pathname + 'page/' + currentPage + '/';
+
+            if ($this.hasClass('step')) {
+                setTimeout(function() {
+                   $this.removeClass('step');
+                   step = 0;
+                }, 1000);
+            };
+
+            $.get(nextPage, function (content) {
+                step++;
+                var post = $(content).find('.post').addClass('opacity');
+                $('#content .loop').append( post );
+                $.each(post, function(index, val) {
+                    var $this = $(this);
+                });
+            });
+
+        });
+    };
+
+    if (config['infinite-scroll'] && config['load-more']) {
+        var checkTimer = 'on';
+        if ($('#load-posts').length > 0) {
+            $(window).on('scroll', function(event) {
+                var timer;
+                if (isScrolledIntoView('#load-posts') && checkTimer == 'on' && step < config['infinite-scroll-step']) {
+                    $('#load-posts').click();
+                    checkTimer = 'off';
+                    timer = setTimeout(function() {
+                        checkTimer = 'on';
+                        if (step == config['infinite-scroll-step']) {
+                            $('#load-posts').addClass('step');
+                        };
+                    }, 1000);
+                };
+            });
+        };
+    };
+
+  });
+
   // Initialize ghostHunter - A Ghost blog search engine
   var searchField = $("#search-field").ghostHunter({
       results             : "#results",
@@ -43,25 +123,6 @@ jQuery(document).ready(function($) {
       onComplete          : function( results ){
         if (results.length) {
             $('#results').empty();
-
-            // var tags = [];
-            // $.each(results, function(index, val) {
-            //     if (val.tags.length) {
-            //         if ($.inArray(val.tags[0].name, tags) === -1) {
-            //             tags.push(val.tags[0].name);
-            //         };
-            //     }else{
-            //         if ($.inArray('Other', tags) === -1) {
-            //             tags.push('Other');
-            //         };
-            //     };
-            // });
-            // tags.sort();
-            // tags = unique(tags);
-
-            // $.each(tags, function(index, val) {
-            //     $('#results').append('<h3>#'+ val +'</h3><ul data-tag="'+ val +'" class="list-box loop row"></ul>');
-            // });
 
             $.each(results, function(index, val) {
               var tag;
@@ -239,5 +300,21 @@ jQuery(document).ready(function($) {
       $('#drawer').removeClass('search-focus');
     }
   });
+
+  // Initialize Highlight.js
+  $('pre code').each(function(i, block) {
+      hljs.highlightBlock(block);
+  });
+
+  // Check if element is into view when scrolling
+  function isScrolledIntoView(elem){
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+  }
 
 });
