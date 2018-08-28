@@ -1,33 +1,36 @@
 {{!-- The tag below means - insert everything in this file into the {body} of the default.hbs template --}}
 {{!< default}}
 
-{{#tag}}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <section class="tag">
-                    <h1 class="post-title">{{name}}</h1>
-                    <p>
-                        {{#if description}}
-                            {{description}}
-                        {{else}}
-                            A collection of {{plural ../pagination.total empty='posts' singular='% post' plural='% posts'}}
-                        {{/if}}
-                    </p>
-                </section>
-            </div>
-        </div>
-    </div>
-{{/tag}}
 
 {{!-- The main content area --}}
 <main id="content" class="container" role="main">
-    <div class="row loop">
-        {{#foreach posts}}
-            <div class="col-md-6 col-lg-4 {{#if @first}}first{{/if}} item">
-                {{> "loop"}}
+    {{#tag}}
+        <div class="row">
+            <div class="col-md-8 mr-auto ml-auto">
+                <section class="intro">
+                    <div class="intro-meta">
+                        <div class="inner">
+                            <h1><strong><a href="{{url}}">{{name}}</a></strong></h1>
+                            {{#if description}}
+                                <p>{{description}}</p>
+                            {{else}}
+                                <p>A collection of {{plural ../pagination.total empty='posts' singular='% post' plural='% posts'}}</p>
+                            {{/if}}
+                        </div>
+                    </div>
+                </section>
             </div>
-        {{/foreach}}
+        </div>
+    {{/tag}}
+    <div class="row">
+        <div class="col-md-8 mr-auto ml-auto">
+            <h3 class="title">Posts</h3>
+            <div class="loop">
+                {{#foreach posts}}
+                    {{> "loop"}}
+                {{/foreach}}
+            </div>
+            {{pagination}}
+        </div>
     </div>
-</main>
-{{pagination}}
+</div>

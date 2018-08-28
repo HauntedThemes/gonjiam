@@ -284,8 +284,9 @@ blockquote p:last-child{
 }
 
 .btn:hover{
-	color: #586069;
+    color: #000;
     box-shadow: 0 0 1px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.03);
+    border: 1px solid #586069;
 }
 
 h1,
@@ -423,7 +424,7 @@ header .drawer-trigger .counter:empty{
 }
 
 .loop{
-    margin: 0 0 30px 0;
+    margin: 0 0 55px 0;
     display: flex;
     flex-wrap: wrap;
 }
@@ -499,7 +500,6 @@ header .drawer-trigger .counter:empty{
 }
 
 .post-meta .inner{
-	opacity: 0;
 	margin-left: auto;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
@@ -511,6 +511,10 @@ header .drawer-trigger .counter:empty{
 	font-weight: 400;
 	font-size: 12px;
 	color: #929292;
+}
+
+.loop .item .inner{
+    opacity: 0;
 }
 
 .loop .item:hover .inner{
@@ -595,13 +599,11 @@ header .drawer-trigger .counter:empty{
 }
 
 .intro p{
-    font-size: 22px;
-    line-height: 32px;
-    font-weight: 400;
-    color: #555555;
-    margin: 20px 0 0 0;
-    position: relative;
-    z-index: 2;
+    margin-top: 5px;
+    font-size: 14px;
+    margin-bottom: 0;
+    line-height: 24px;
+    padding-right: 50px;
 }
 
 .intro img{
@@ -654,6 +656,11 @@ h3.title{
 	font-size: 13px;
     padding: 0px 6px;
 	color: #929292;
+    line-height: 25px;
+}
+
+.authors .intro{
+    margin-top: 30px;
 }
 
 .social{
@@ -718,7 +725,7 @@ h3.title{
 	top: 0;
 	right: 0;
 	background: #fff;
-        box-shadow: 0 0 60px rgba(0,0,0,.08);
+    box-shadow: 0 0 60px rgba(0,0,0,.08);
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
@@ -730,12 +737,18 @@ h3.title{
 	transform: translateX(0);
 }
 
+footer .footer-content{
+    border-top: 1px solid #dddede;
+    margin-top: 70px;
+}
+
 footer .copyright{
     margin: 50px 0 30px 0;
 }
 
 footer .copyright p{
 	margin: 0;
+    font-size: 13px;
 }
 
 .modal{
@@ -939,6 +952,9 @@ h1.post-title{
 
 .editor-content{
     margin-top: 100px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #dddede;
+    padding-bottom: 20px;
 }
 
 .editor-content ol,
@@ -947,8 +963,12 @@ h1.post-title{
 }
 
 .related-posts{
-    border-bottom: 1px solid rgba(27,31,35,0.15);
-    padding-bottom: 50px;
+    margin-top: 50px;
+    background: #fafafa;
+    padding: 1px 50px 50px 50px;
+    width: calc(100% + 100px);
+    margin-left: -50px;
+    border-radius: 5px;
 }
 
 .related-posts .loop{
@@ -994,7 +1014,7 @@ h1.post-title{
 .editor-content figcaption{
     bottom: 0;
     width: 100%;
-    padding: 15px 20px 15px 20px;
+    padding: 15px 0 15px 0;
     text-transform: uppercase;
     font-size: 12px;
     font-weight: bold;
@@ -1020,14 +1040,87 @@ h1.post-title{
 }
 
 .comments{
-    margin-top: 100px;
-    border-bottom: 1px solid rgba(27,31,35,0.15);
-    border-top: 1px solid rgba(27,31,35,0.15);
-    padding-bottom: 50px;
     padding-top: 50px;
     display: flex;
     text-align: center;
     justify-content: center;
+}
+
+.comments #disqus_thread{
+    width: 100%;
+}
+
+.share{
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.share p{
+    font-size: 13px;
+    line-height: 13px;
+    color: #b5b5b5;
+    margin: 0;
+}
+
+.share a{
+    display: inline-flex;
+    width: 15px;
+    height: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.share .twitter{
+    color: #1da1f2;
+}
+
+.share .facebook{
+    color: #3b5998;
+}
+
+.share .google-plus{
+    color: #dd4b39;
+}
+
+.share .reddit{
+    color: #ff4500;
+}
+
+.share .email{
+    color: #6a737b;
+}
+
+.share .youtube{
+    color: #ff0000;
+}
+
+.share .instagram{
+    color: #d10869;
+}
+
+.go-up{
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.scroll .go-up{
+    opacity: 1;
+    pointer-events: all;
 }
 
 @keyframes opacity {

@@ -17,6 +17,31 @@ jQuery(document).ready(function($) {
       readLaterPosts = [],
       url = [location.protocol, '//', location.host].join('');
 
+  $('[data-toggle="tooltip"]').tooltip({
+      trigger : 'hover'
+  });
+
+  $('.go-up').on('click', function(event) {
+      event.preventDefault();
+      $('body,html').animate({
+          scrollTop : 0
+      }, 500);
+  });
+
+  $(window).on('scroll', function(event) {
+      
+    if ($(this).scrollTop() > 0) {
+        $('body').addClass('scroll');
+    }else{
+        $('body').removeClass('scroll');
+    };
+
+    if ($('.post-template').length) {
+        progressBar();
+    };
+
+  });
+
   // Check 'read later' posts 
   if (typeof Cookies.get('gonjiam-read-later') !== "undefined") {
     readLaterPosts = JSON.parse(Cookies.get('gonjiam-read-later'));
@@ -140,7 +165,6 @@ jQuery(document).ready(function($) {
                   <div class="post-meta"> \
                       <time datetime="'+ val.pubDate +'">'+ val.pubDate +'</time>'+ tag +' \
                       <div class="inner"> \
-                        <a href="'+ val.link +'#disqus_thread" class="count-comments"></a> \
                         <a href="https://twitter.com/share?text='+ encodeURIComponent(val.title) +'&amp;url='+ url + val.link +'" class="twitter" onclick="window.open(this.href, \'share-twitter\', \'width=550,height=235\');return false;" data-toggle="tooltip" data-placement="top" title="Share on Twitter"><i class="fab fa-twitter"></i></a> \
                         <a href="#" class="read-later" data-id="'+ val.id +'"><i class="far fa-bookmark"></i></a> \
                       </div> \
@@ -233,7 +257,6 @@ jQuery(document).ready(function($) {
                     <div class="post-meta"> \
                         <time datetime="'+ prettyDate(val.created_at) +'">'+ prettyDate(val.created_at) +'</time>'+ tag +' \
                         <div class="inner"> \
-                          <a href="'+ val.link +'#disqus_thread" class="count-comments"></a> \
                           <a href="https://twitter.com/share?text='+ encodeURIComponent(val.title) +'&amp;url='+ url + val.link +'" class="twitter" onclick="window.open(this.href, \'share-twitter\', \'width=550,height=235\');return false;" data-toggle="tooltip" data-placement="top" title="Share on Twitter"><i class="fab fa-twitter"></i></a> \
                           <a href="#" class="read-later active" data-id="'+ val.id +'"><i class="far fa-bookmark"></i></a> \
                         </div> \
@@ -316,5 +339,29 @@ jQuery(document).ready(function($) {
 
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
   }
+
+  // Initialize Disqus comments
+  if ($('#content').attr('data-id') && config['disqus-shortname'] != '') {
+
+    $('.comments .btn').on('click', function(event) {
+      event.preventDefault();
+      $(this).addClass('hidden');
+      $('.comments').append('<div id="disqus_thread"></div>');
+
+      var url = [location.protocol, '//', location.host, location.pathname].join('');
+      var disqus_config = function () {
+          this.page.url = url;
+          this.page.identifier = $('#content').attr('data-id');
+      };
+
+      (function() {
+      var d = document, s = d.createElement('script');
+      s.src = '//'+ config['disqus-shortname'] +'.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+      })();
+    });
+
+  };
 
 });
