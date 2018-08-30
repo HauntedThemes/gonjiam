@@ -20,9 +20,10 @@
     },
     "keywords": [
         "ghost",
-        "theme"
+        "theme",
+        "ghost-theme"
     ],
     "config": {
-        "posts_per_page": 4
+        "posts_per_page": 6
     }
 }

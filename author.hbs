@@ -18,7 +18,7 @@
                             {{#if bio}}
                                 <p>{{bio}}</p>
                             {{else}}
-                                <p>Please set your author's bio.</p>
+                                <p>{{{t "Read <a href='{url}'>more posts</a> by this author." url=(url)}}}</p>
                             {{/if}}
                         </div>
                         <ul class="social">
@@ -29,7 +29,7 @@
                     </div>
                 </section>
             {{/author}}
-            <h3 class="title">Posts</h3>
+            <h3 class="title">{{t "Posts"}}</h3>
             <div class="loop">
                 {{#foreach posts}}
                     {{> "loop"}}

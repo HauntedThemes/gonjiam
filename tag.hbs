@@ -1,7 +1,6 @@
 {{!-- The tag below means - insert everything in this file into the {body} of the default.hbs template --}}
 {{!< default}}
 
-
 {{!-- The main content area --}}
 <main id="content" class="container" role="main">
     {{#tag}}
@@ -14,7 +13,7 @@
                             {{#if description}}
                                 <p>{{description}}</p>
                             {{else}}
-                                <p>A collection of {{plural ../pagination.total empty='posts' singular='% post' plural='% posts'}}</p>
+                                {{plural ../pagination.total empty=(t "A collection of posts") singular=(t "A collection of 1 post") plural=(t "A collection of % posts")}}
                             {{/if}}
                         </div>
                     </div>
@@ -24,7 +23,7 @@
     {{/tag}}
     <div class="row">
         <div class="col-md-8 mr-auto ml-auto">
-            <h3 class="title">Posts</h3>
+            <h3 class="title">{{t "Posts"}}</h3>
             <div class="loop">
                 {{#foreach posts}}
                     {{> "loop"}}

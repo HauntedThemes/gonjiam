@@ -15,7 +15,9 @@ jQuery(document).ready(function($) {
   var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
       h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
       readLaterPosts = [],
-      url = [location.protocol, '//', location.host].join('');
+      url = [location.protocol, '//', location.host].join(''),
+      noBookmarksMessage = $('.no-bookmarks').text(),
+      monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "Sepember", "October", "November", "December"];
 
   $('[data-toggle="tooltip"]').tooltip({
       trigger : 'hover'
@@ -27,6 +29,12 @@ jQuery(document).ready(function($) {
           scrollTop : 0
       }, 500);
   });
+
+  if ($(this).scrollTop() > 0) {
+      $('body').addClass('scroll');
+  }else{
+      $('body').removeClass('scroll');
+  };
 
   $(window).on('scroll', function(event) {
       
@@ -75,7 +83,12 @@ jQuery(document).ready(function($) {
     }
 
     // Load more posts on click
-    if (config['load-more']) {
+    if (config['load-more'] && typeof maxPages !== 'undefined') {
+
+        if (maxPages == 1) {
+          $('#load-posts').addClass('hidden');
+          return;
+        };
 
         $('#load-posts').addClass('visible').removeClass('hidden');
 
@@ -114,6 +127,10 @@ jQuery(document).ready(function($) {
                     var $this = $(this);
                 });
             });
+
+            if (currentPage == maxPages) {
+              $('#load-posts').addClass('hidden');
+            };
 
         });
     };
@@ -283,11 +300,17 @@ jQuery(document).ready(function($) {
                   });
               });
 
+              if (data.posts.length) {
+                  $('header .counter').removeClass('hidden').text(data.posts.length);
+              }else{
+                  $('header .counter').addClass('hidden');
+                  $('.bookmark-container').append('<p class="no-bookmarks">'+ noBookmarksMessage +'</p>');
+              };
+
           });
       }else{
-          $('.bookmark-container').addClass('no-bookmarks');
           $('header .counter').addClass('hidden');
-          $('.bookmark-container').append('<p>You haven\'t yet saved any bookmarks. To bookmark a post, just click <i class="far fa-bookmark"></i>.</p>')
+          $('.bookmark-container').append('<p class="no-bookmarks">'+ noBookmarksMessage +'</p>')
       };
   }
 
@@ -362,6 +385,53 @@ jQuery(document).ready(function($) {
       })();
     });
 
+  };
+
+  // Initialize shareSelectedText
+  if (config['share-selected-text']) {
+    shareSelectedText('.post-template .editor-content', {
+      sanitize: true,
+      buttons: [
+        'twitter',
+      ],
+      tooltipTimeout: 250
+    });
+  }; 
+
+  // Progress bar for inner post
+  function progressBar(){
+      var postContentOffsetTop = $('.editor-content').offset().top;
+      var postContentHeight = $('.editor-content').height();
+      if ($(window).scrollTop() > postContentOffsetTop && $(window).scrollTop() < (postContentOffsetTop + postContentHeight)) {
+          var heightPassed = $(window).scrollTop() - postContentOffsetTop;
+          var percentage = heightPassed * 100/postContentHeight;
+          $('.progress').css({
+              width: percentage + '%'
+          });
+          $('.progress').parent().addClass('visible');
+          $('.progress').attr('data-original-title', parseInt(percentage) + '%');
+          if ($('.progress').attr('aria-describedby')) {
+              $('#' + $('.progress').attr('aria-describedby')).find('.tooltip-inner').text(parseInt(percentage) + '%');
+          };
+      }else if($(window).scrollTop() < postContentOffsetTop){
+          $('.progress').css({
+              width: '0%'
+          });
+          $('.progress').parent().removeClass('visible');
+      }else{
+          $('.progress').css({
+              width: '100%'
+          });
+          $('.progress').attr('data-original-title', '100%');
+          if ($('.progress').attr('aria-describedby')) {
+              $('#' + $('.progress').attr('aria-describedby')).find('.tooltip-inner').text('100%');
+          };
+      };
+  }
+
+  if ($('.tweets').length) {
+      var twitter = $('.tweets').attr('data-twitter').substr(1);
+      $('.tweets').append('<a class="twitter-timeline" data-width="100%" data-height="800" data-tweet-limit="3" data-chrome="noborders noheader nofooter transparent" href="https://twitter.com/'+ twitter +'?ref_src=twsrc%5Etfw"></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>');
   };
 
 });
