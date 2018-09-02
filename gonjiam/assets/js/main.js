@@ -49,6 +49,8 @@ jQuery(document).ready(function($) {
             progressBar();
         };
 
+        $('.zoom').fluidbox('close');
+
     });
 
     // Check 'read later' posts 

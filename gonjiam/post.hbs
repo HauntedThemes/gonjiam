@@ -10,7 +10,7 @@
             <article class="{{post_class}}">
                 <h1 class="post-title">{{title}}</h1>
                 <div class="post-meta">
-                    <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time><span class="tags">{{tags separator=' '}}</span>
+                    <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time><span class="tags">{{tags separator=' ' limit=1}}</span>
                     <div class="inner">
                         <div class="share">
                             <p>{{t "Share on:"}}</p>

@@ -139,7 +139,7 @@ a{
 }
 
 a:hover{
-    color: #0069FF;
+    color: #000000;
     text-decoration: none;
 }
 
@@ -1117,6 +1117,12 @@ h1.post-title{
 
 .editor-content .kg-gallery-image:not(:first-of-type) {
     margin: 0 0 0 10px;
+}
+
+.fluidbox__overlay{
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
 }
 
 .editor-content p,
