@@ -1,4 +1,4 @@
-Gonjiam - Multipurpose Ghost Theme by Haunted Themes
+Gonjiam - Personal Ghost Theme by Haunted Themes
 ============================
 
 > Copyright (C) HauntedThemes SRL

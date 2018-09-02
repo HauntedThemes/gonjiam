@@ -27,11 +27,9 @@
                             </h1>
                             <section class="post-content">
                                 {{^if success}}
-                                    {{subscribe_form
-                                        form_class="gh-signin"
-                                        input_class="gh-input"
-                                        placeholder=(t "Your email address")
-                                    }}
+                                    <div class="subscribe-container">
+                                        {{subscribe_form placeholder=(t "Your email address")}}
+                                    </div>
                                 {{else}}
                                     <p>
                                         {{t "You've successfully subscribed to"}} <em>{{@blog.title}}</em>

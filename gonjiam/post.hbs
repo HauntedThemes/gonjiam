@@ -6,7 +6,7 @@
 
 <main id="content" class="container" role="main" data-id={{comment_id}}>
     <div class="row">
-        <div class="col-md-8 mr-auto ml-auto">
+        <div class="col-md-12 col-lg-10 col-xl-8 mr-auto ml-auto">
             <article class="{{post_class}}">
                 <h1 class="post-title">{{title}}</h1>
                 <div class="post-meta">
@@ -54,7 +54,7 @@
                                 </figure>
                                 {{/if}}
                                 <div class="inner">
-                                    <h1><strong><a href="{{url}}">{{name}}</a></strong></h1>
+                                    <h3><strong><a href="{{url}}">{{name}}</a></strong></h3>
                                     {{#if bio}}
                                         <p>{{bio}}</p>
                                     {{else}}
@@ -68,18 +68,20 @@
                 </div>
             </article>
             <div class="comments"><a href="#" class="btn">{{t "Write a comment"}}</a></div>
-            {{#get "posts" limit="2" include="tags, author" filter="id:-{{id}}+primary_tag:{{primary_tag.slug}}"}}
-                {{#if posts}}
-                <div class="related-posts">
-                    <h3 class="title">{{t "Related posts"}}</h3>
-                    <div class="loop">
-                        {{#foreach posts}}
-                            {{> "loop"}}
-                        {{/foreach}}
+            {{#if @labs.publicAPI}}
+                {{#get "posts" limit="2" include="tags, authors" filter="id:-{{id}}+primary_tag:{{primary_tag.slug}}"}}
+                    {{#if posts}}
+                    <div class="related-posts">
+                        <h3 class="title">{{t "Related posts"}}</h3>
+                        <div class="loop">
+                            {{#foreach posts}}
+                                {{> "loop"}}
+                            {{/foreach}}
+                        </div>
                     </div>
-                </div>
-                {{/if}}
-            {{/get}}
+                    {{/if}}
+                {{/get}}
+            {{/if}}
         </div>
     </div>
 </div>

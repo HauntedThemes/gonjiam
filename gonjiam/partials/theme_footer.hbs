@@ -1,7 +1,7 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-md-8 mr-auto ml-auto">
+                <div class="col-md-12 col-lg-10 col-xl-8 mr-auto ml-auto">
                     <div class="footer-content">
                         <div class="row">
                             {{#if @labs.publicAPI}}
@@ -24,7 +24,7 @@
                                 <div class="col-md-6">
                                     <h3 class="title">Newsletter</h3>
                                     <div class="subscribe-container">
-                                        <p>Subscribe to our newsletter to receive our latest news.</p>
+                                        <p>{{t "Subscribe to our newsletter to receive our latest news."}}</p>
                                         {{subscribe_form placeholder=(t "Your email address")}}
                                     </div>
                                 </div>

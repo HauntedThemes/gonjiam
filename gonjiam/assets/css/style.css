@@ -8,11 +8,8 @@
     1.  General
     2.  Header
     3.  Inner Content
-    4.  Pagination
-    5.  Share Selected Text
-    6.  Subscribe
-    7.  Footer
-    8.  Responsive
+    4.  Share Selected Text
+    5.  Responsive
 
 */
 
@@ -117,7 +114,7 @@ td, th{ padding: 0; }
 }
 
 body{
-    font-family: "azo-sans-web", sans-serif;
+    font-family: "azo-sans-web", "Roboto", sans-serif;
     font-weight: 300;
     color: #555;
     font-size: 15px;
@@ -240,7 +237,7 @@ figure{
 }
 
 hr{
-    margin: 50px 0;
+    margin: 30px 0;
 }
 
 blockquote{
@@ -341,14 +338,6 @@ h6{
    2. Header
    ========================================================================== */
 
-.main-container{
-    overflow: hidden;
-}
-
-#content{
-    padding: 190px 15px 0 15px;
-}
-
 header{
     padding: 15px 0;
     position: fixed;
@@ -358,10 +347,10 @@ header{
     overflow-y: scroll;
     box-shadow: none;
     background: transparent;
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
+    -webkit-transition: height 0.3s ease-in-out, background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    -moz-transition: height 0.3s ease-in-out, background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    -o-transition: height 0.3s ease-in-out, background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition: height 0.3s ease-in-out, background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -447,10 +436,10 @@ header .drawer-trigger .counter{
     box-shadow: 0 0 1px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.03);
     font-size: 11px;
     position: absolute;
-    top: 28px;
-    right: 5px;
-    width: 20px;
-    height: 20px;
+    top: 22px;
+    right: 6px;
+    width: 18px;
+    height: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -459,6 +448,18 @@ header .drawer-trigger .counter{
 
 header .drawer-trigger .counter:empty{
     display: none;
+}
+
+/* ==========================================================================
+   3. Inner Content
+   ========================================================================== */
+
+.main-container{
+    overflow: hidden;
+}
+
+#content{
+    padding: 190px 15px 0 15px;
 }
 
 .loop{
@@ -566,7 +567,7 @@ header .drawer-trigger .counter:empty{
 }
 
 .loop strong{
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .loop .item p span{
@@ -622,7 +623,8 @@ header .drawer-trigger .counter:empty{
     border-radius: 5px;
 }
 
-.intro h1{
+.intro h1,
+.intro h3{
     font-size: 18px;
     padding-top: 0;
     margin: 0;
@@ -685,6 +687,7 @@ h3.title{
 
 .tags-list li{
     margin-right: 10px;
+    margin-bottom: 10px;
     position: relative;
 }
 
@@ -846,6 +849,27 @@ footer .copyright p{
     position: relative;
 }
 
+.modal .widget.widget-menu{
+    display: none;
+}
+
+.modal .widget.widget-menu ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.modal .widget.widget-menu ul li{
+    width: 100%;
+}
+
+.modal .widget.widget-menu ul li a{
+    display: block;
+    padding: 10px 0;
+    border-bottom: 1px solid #ededed;
+}
+
 .modal .close{
     opacity: 1;
     color: #929292;
@@ -992,7 +1016,7 @@ footer .copyright p{
 }
 
 .feature-image img{
-    margin: 30px 0;
+    margin: 30px 0 0 0;
     height: auto;
     border-radius: 5px;
     max-width: calc(100% + 200px);
@@ -1008,8 +1032,14 @@ h1.post-title{
     font-weight: bold;
 }
 
+.page-template .editor-content{
+    padding-bottom: 0;
+    margin-bottom: auto;
+    border: none;
+}
+
 .editor-content{
-    margin-top: 50px;
+    margin-top: 38px;
     margin-bottom: 30px;
     border-bottom: 1px solid #dddede;
     padding-bottom: 20px;
@@ -1055,6 +1085,40 @@ h1.post-title{
     margin: 0;
 }
 
+.editor-content .kg-gallery-container {
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+    width: calc(100vw - 30px);
+    max-width: 1440px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+.editor-content .kg-gallery-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.editor-content .kg-gallery-image img {
+    display: flex;
+    object-fit: cover;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.editor-content .kg-gallery-row:not(:first-of-type) {
+    margin: 10px 0 0 0;
+}
+
+.editor-content .kg-gallery-image:not(:first-of-type) {
+    margin: 0 0 0 10px;
+}
+
 .editor-content p,
 .editor-content ul,
 .editor-content ol{
@@ -1086,6 +1150,7 @@ h1.post-title{
 
 .editor-content .kg-width-full img{
     max-width: 100vw;
+    border-radius: 0;
 }
 
 .editor-content .kg-width-wide img{
@@ -1095,6 +1160,12 @@ h1.post-title{
 .editor-content a{
     border-bottom: 1px dotted #b5b5b5;
     color: #000;
+}
+
+.editor-content a.zoom{
+    border: none;
+    cursor: pointer;
+    cursor: zoom-in;
 }
 
 .comments{
@@ -1183,7 +1254,7 @@ h1.post-title{
 }
 
 /* ==========================================================================
-   7. Share Selected Text
+   4. Share Selected Text
    ========================================================================== */
 
 .share-selected-text-main-container {
@@ -1312,7 +1383,7 @@ h1.post-title{
     right: 100px;
     width: 100px;
     height: 26px;
-    border-bottom: 1px solid rgba(27,31,35,0.15);
+    border-bottom: 5px solid rgba(27,31,35,0.15);
     opacity: 0;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
@@ -1331,12 +1402,12 @@ h1.post-title{
     -o-transition: background 0.3s ease-in-out;
     transition: background 0.3s ease-in-out;
     position: absolute;
-    bottom: -1px;
+    bottom: -5px;
     left: 0;
-    height: 1px;
+    height: 5px;
     overflow: visible;
+    background: #555;
     border-radius: 0;
-    background: #000;
 }
 
 .progress:before{
@@ -1352,6 +1423,7 @@ h1.post-title{
 
 .next-post,
 .prev-post{
+    background: #fff;
     position: fixed;
     z-index: 9;
     top: 50%;
@@ -1419,4 +1491,108 @@ h1.post-title{
 @keyframes opacity {
     from {opacity: 0;}
     to {opacity: 1;}
+}
+
+/* ==========================================================================
+   5. Responsive
+   ========================================================================== */
+
+@media (max-width: 1199px) {
+    .editor-content iframe[src*="https://www.youtube.com/"],
+    .editor-content iframe[src*="https://player.vimeo.com/"] {
+        height: calc(770px / 1.77777778) !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .editor-content .kg-width-wide img{
+        max-width: calc(100vw - 30px);
+    }
+    .feature-image img{
+        max-width: calc(100vw - 30px);
+    }
+    .editor-content iframe[src*="https://www.youtube.com/"],
+    .editor-content iframe[src*="https://player.vimeo.com/"] {
+        height: calc(690px / 1.77777778) !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .modal .widget.widget-menu{
+        display: block;
+    }
+    header .nav{
+        opacity: 0;
+    }
+    #content{
+        padding-top: 140px;
+    }
+    .loop .item{
+        width: 100%;
+        padding: 15px 0px 15px 0;
+    }
+    .intro .intro-meta{
+        flex-wrap: wrap;
+    }
+    .intro figure{
+        margin-bottom: 20px;
+    }
+    .social{
+        margin: 10px 0 0 0;
+    }
+    .intro p{
+        padding-right: 0;
+    }
+    .loop .item .inner{
+        opacity: 1;
+    }
+    .modal .item{
+        padding: 15px;
+    }
+    .prev-post,
+    .next-post,
+    .progress-container{
+        display: none;
+    }
+    .editor-content iframe[src*="https://www.youtube.com/"],
+    .editor-content iframe[src*="https://player.vimeo.com/"] {
+        height: calc(510px / 1.77777778) !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 575px) {
+    .modal{
+        max-width: calc(100vw - 30px);
+    }
+    .loop .item.featured:before{
+        display: none;
+    }
+    .go-up{
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        bottom: 20px;
+        right: 20px;
+    }
+    .share{
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+    .share p{
+        display: none;
+    }
+    .share a{
+        padding: 10px 0;
+    }
+    .share a:nth-child(n+4){
+        display: none;
+    }
+    .editor-content iframe[src*="https://www.youtube.com/"],
+    .editor-content iframe[src*="https://player.vimeo.com/"] {
+        height: calc((100vw - 30px) / 1.77777778) !important;
+        width: 100% !important;
+    }
 }

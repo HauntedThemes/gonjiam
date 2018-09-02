@@ -1,0 +1,25 @@
+{{!-- The tag below means - insert everything in this file into the {body} of the default.hbs template --}}
+{{!< default}}
+
+{{!-- Everything inside the #post tags pulls data from the post --}}
+{{#post}}
+
+<main id="content" class="container" role="main" data-id={{comment_id}}>
+    <div class="row">
+        <div class="col-md-12 col-lg-10 col-xl-8 mr-auto ml-auto">
+            <article class="{{post_class}}">
+                <h1 class="post-title">{{title}}</h1>
+                {{#if feature_image}}
+                <figure class="feature-image">
+                    <img src="{{img_url feature_image}}" alt="{{name}}">
+                </figure>
+                {{/if}}
+                <div class="editor-content">
+                    {{content}}
+                </div>
+            </article>
+        </div>
+    </div>
+</main>
+
+{{/post}}
