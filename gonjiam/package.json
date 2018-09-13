@@ -2,7 +2,7 @@
     "name": "gonjiam",
     "description": "A simple, clean, minimalist, personal type of theme that is perfect for those who simply want to share a thought or a piece of code.",
     "demo": "https://gonjiam.hauntedthemes.com/",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "GNU General Public License, Version 2",
     "engines": {
         "ghost": ">=1.0.0"
