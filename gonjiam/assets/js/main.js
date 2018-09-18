@@ -15,7 +15,7 @@ jQuery(document).ready(function($) {
         h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
         readLaterPosts = [],
         url = [location.protocol, '//', location.host].join(''),
-        noBookmarksMessage = $('.no-bookmarks').text(),
+        noBookmarksMessage = $('.no-bookmarks').html(),
         monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     setGalleryRation();
