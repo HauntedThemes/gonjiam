@@ -325,13 +325,15 @@ jQuery(document).ready(function($) {
                     $('header .counter').removeClass('hidden').text(data.posts.length);
                 } else {
                     $('header .counter').addClass('hidden');
-                    $('.bookmark-container').append('<p class="no-bookmarks">' + noBookmarksMessage + '</p>');
+                    $('.bookmark-container').append('<p class="no-bookmarks"></p>');
+                    $('.no-bookmarks').html(noBookmarksMessage)
                 };
 
             });
         } else {
             $('header .counter').addClass('hidden');
-            $('.bookmark-container').append('<p class="no-bookmarks">' + noBookmarksMessage + '</p>')
+            $('.bookmark-container').append('<p class="no-bookmarks"></p>');
+            $('.no-bookmarks').html(noBookmarksMessage)
         };
     }
 
