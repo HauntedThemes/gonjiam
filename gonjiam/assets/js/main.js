@@ -163,51 +163,51 @@ jQuery(document).ready(function($) {
 
     });
 
-    // Initialize ghostHunter - A Ghost blog search engine
-    var searchField = $("#search-field").ghostHunter({
-        results: "#results",
-        onKeyUp: true,
-        zeroResultsInfo: true,
-        displaySearchInfo: false,
-        onComplete: function(results) {
-            if (results.length) {
-                $('#results').empty();
-
-                $.each(results, function(index, val) {
-
-                    var dateSplit = val.pubDate.split(' ')
-                    var month = monthNames.indexOf(dateSplit[1])+1;
-                    var date = moment(dateSplit[0]+'-'+month+'-'+dateSplit[2], "DD-MM-YYYY").format('DD MMM YYYY');
-
-                    var tag;
-                    if (val.tags.length) {
-                        tag = '<span class="tags"><a href="/tag/' + val.tags[0].slug + '">' + val.tags[0].name + '</a></span>';
-                    };
-                    $('#results').append('\
-                       <div class="item"> \
-                        <article class="{{post_class}}" data-id={{comment_id}}> \
-                          <div class="post-inner-content"> \
-                              <p> \
-                                <a href="' + val.link + '" class="post-title" title="' + val.title + '"><strong>' + val.title + '</strong></a> \
-                              </p> \
-                          </div> \
-                          <div class="post-meta"> \
-                              <time datetime="' + val.pubDate + '">' + date + '</time>' + tag + ' \
-                              <div class="inner"> \
-                                <a href="https://twitter.com/share?text=' + encodeURIComponent(val.title) + '&amp;url=' + url + val.link + '" class="twitter" onclick="window.open(this.href, \'share-twitter\', \'width=550,height=235\');return false;"><i class="fab fa-twitter"></i></a> \
-                                <a href="#" class="read-later" data-id="' + val.id + '"><i class="far fa-bookmark"></i></a> \
-                              </div> \
-                          </div> \
-                        </article> \
-                       </div> \
-                      ');
-                });
+    let ghostSearch = new GhostSearch({
+        input: '#search-field',
+        results: '#results',
+        template: function(result) {
+            var url = [location.protocol, '//', location.host].join('');
+            var dateSplit = result.published_at.split('T');
+            dateSplit = dateSplit[0].split('-');
+            var month = monthNames.indexOf(dateSplit[1])+1;
+            var date = moment(dateSplit[0]+'-'+dateSplit[1]+'-'+dateSplit[2], "DD-MM-YYYY").format('DD MMM YYYY');
+            var tag = '';
+            if(result.primary_tag){
+                tag = '<span class="tags"><a href="/tag/'+ result.primary_tag.slug +'">'+ result.primary_tag.name +'</a></span>';
+            }
+            var str = '\
+            <div class="item"> \
+             <article> \
+               <div class="post-inner-content"> \
+                   <p> \
+                     <a href="' + url + result.slug + '" class="post-title" title="' + result.title + '"><strong>' + result.title + '</strong></a> \
+                   </p> \
+               </div> \
+               <div class="post-meta"> \
+                   <time datetime="' + result.published_at + '">' + date + '</time>' + tag + ' \
+                   <div class="inner"> \
+                     <a href="https://twitter.com/share?text=' + encodeURIComponent(result.title) + '&amp;url=' + url + result.slug + '" class="twitter" onclick="window.open(this.href, \'share-twitter\', \'width=550,height=235\');return false;"><i class="fab fa-twitter"></i></a> \
+                     <a href="#" class="read-later" data-id="' + result.id + '"><i class="far fa-bookmark"></i></a> \
+                   </div> \
+               </div> \
+             </article> \
+            </div>';
+            return str;
+        },
+        api: {
+            resource: 'posts',
+            parameters: { 
+                fields: ['title', 'slug', 'published_at', 'id'],
+                include: 'tags'
+            },
+        },
+        on: {
+            afterDisplay: function(results){
                 readLaterPosts = readLater($('#results'), readLaterPosts);
-            } else if ($('#search-field').val().length && !results.length) {
-                $('#results').append('<h3>'+ $('#results').attr('data-no-results') +'</h3><ul class="list-box loop row"><li class="col-md-12 item">'+ $('#results').attr('data-no-results-description') +'</li></ul>');
-            };
+            },
         }
-    });
+    })
 
     function unique(list) {
         var result = [];
