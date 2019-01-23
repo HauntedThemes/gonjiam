@@ -4,7 +4,6 @@
                 <div class="col-md-12 col-lg-10 col-xl-8 mr-auto ml-auto">
                     <div class="footer-content">
                         <div class="row">
-                            {{#if @labs.publicAPI}}
                             <div class="col-md-6">
                                 <h3 class="title">{{t "Tags"}}</h3>
                                 <ul class="tags-list">
@@ -19,7 +18,6 @@
                                     {{/get}}
                                 </ul>
                             </div>
-                            {{/if}}
                             {{#if @labs.subscribers}}
                                 <div class="col-md-6">
                                     <h3 class="title">Newsletter</h3>
@@ -37,7 +35,7 @@
         <div class="container-fluid copyright">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <p>{{t "Copyright"}} &copy; {{date format="YYYY"}}, <a href="{{@blog.url}}">{{@blog.title}}</a>. {{t "All Right Reserved"}}.</p>
+                    <p>{{t "Copyright"}} &copy; {{date format="YYYY"}}, <a href="{{@site.url}}">{{@site.title}}</a>. {{t "All Right Reserved"}}.</p>
                 </div>
             </div>
         </div>

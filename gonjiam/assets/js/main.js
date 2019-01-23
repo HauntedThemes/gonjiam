@@ -8,7 +8,9 @@ jQuery(document).ready(function($) {
         'load-more': true,
         'infinite-scroll': false,
         'infinite-scroll-step': 999,
-        'disqus-shortname': 'hauntedthemes-demo'
+        'disqus-shortname': 'hauntedthemes-demo',
+        'content-api-host': '',
+        'content-api-key': '',
     };
 
     var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
@@ -17,6 +19,12 @@ jQuery(document).ready(function($) {
         url = [location.protocol, '//', location.host].join(''),
         noBookmarksMessage = $('.no-bookmarks').html(),
         monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    var ghostAPI = new GhostContentAPI({
+        host: config['content-api-host'],
+        key: config['content-api-key'],
+        version: 'v2'
+    });
 
     setGalleryRation();
 
@@ -166,12 +174,14 @@ jQuery(document).ready(function($) {
     let ghostSearch = new GhostSearch({
         input: '#search-field',
         results: '#results',
+        host: config['content-api-host'],
+        key: config['content-api-key'],
         template: function(result) {
             var url = [location.protocol, '//', location.host].join('');
             var dateSplit = result.published_at.split('T');
             dateSplit = dateSplit[0].split('-');
             var month = monthNames.indexOf(dateSplit[1])+1;
-            var date = moment(dateSplit[0]+'-'+dateSplit[1]+'-'+dateSplit[2], "DD-MM-YYYY").format('DD MMM YYYY');
+            var date = moment(dateSplit[2]+'-'+dateSplit[1]+'-'+dateSplit[0], "DD-MM-YYYY").format('DD MMM YYYY');
             var tag = '';
             if(result.primary_tag){
                 tag = '<span class="tags"><a href="/tag/'+ result.primary_tag.slug +'">'+ result.primary_tag.name +'</a></span>';
@@ -208,14 +218,6 @@ jQuery(document).ready(function($) {
             },
         }
     })
-
-    function unique(list) {
-        var result = [];
-        $.each(list, function(i, e) {
-            if ($.inArray(e, result) == -1) result.push(e);
-        });
-        return result;
-    }
 
     function readLater(content, readLaterPosts) {
 
@@ -266,70 +268,72 @@ jQuery(document).ready(function($) {
             var filter = readLaterPosts.toString();
             filter = "id:[" + filter + "]";
 
-            $.get(ghost.url.api('posts', {
-                filter: filter,
-                include: "tags"
-            })).done(function(data) {
+            ghostAPI.posts
+                .browse({limit: 'all', filter: filter, include: 'tags'})
+                .then((results) => {
 
-                $('.bookmark-container').empty();
+                    $('.bookmark-container').empty();
 
-
-                $.each(data.posts, function(index, val) {
-                    var dateSplit = prettyDate(val.published_at).split(' ')
-                    var month = monthNames.indexOf(dateSplit[1])+1;
-                    var date = moment(dateSplit[0]+'-'+month+'-'+dateSplit[2], "DD-MM-YYYY").format('DD MMM YYYY');
-                    var tag;
-                    if (val.tags.length) {
-                        tag = '<span class="tags"><a href="/tag/' + val.tags[0].slug + '">' + val.tags[0].name + '</a></span>';
-                    };
-                    $('.bookmark-container').append('\
-                     <div class="item"> \
-                      <article class="{{post_class}}" data-id={{comment_id}}> \
-                        <div class="post-inner-content"> \
-                            <p> \
-                              <a href="' + val.link + '" class="post-title" title="' + val.title + '"><strong>' + val.title + '</strong></a> \
-                            </p> \
-                        </div> \
-                        <div class="post-meta"> \
-                            <time datetime="' + date + '">' + date + '</time>' + tag + ' \
-                            <div class="inner"> \
-                              <a href="https://twitter.com/share?text=' + encodeURIComponent(val.title) + '&amp;url=' + url + val.link + '" class="twitter" onclick="window.open(this.href, \'share-twitter\', \'width=550,height=235\');return false;" data-toggle="tooltip" data-placement="top" title="Share on Twitter"><i class="fab fa-twitter"></i></a> \
-                              <a href="#" class="read-later active" data-id="' + val.id + '"><i class="far fa-bookmark"></i></a> \
-                            </div> \
-                        </div> \
-                      </article> \
-                     </div> \
-                    ');
-                });
-
-                $('.bookmark-container').find('.read-later').each(function(index, el) {
-                    $(this).on('click', function(event) {
-                        event.preventDefault();
-                        var id = $(this).attr('data-id');
-                        if ($(this).hasClass('active')) {
-                            removeValue(readLaterPosts, id);
-                        } else {
-                            readLaterPosts.push(id);
-                        };
-                        $('.read-later[data-id="' + id + '"]').each(function(index, el) {
-                            $(this).toggleClass('active');
-                        });
-                        Cookies.set('gonjiam-read-later', readLaterPosts, {
-                            expires: 365
-                        });
-                        bookmarks(readLaterPosts);
+                    $.each(results, function(index, result) {
+                        console.log(result)
+                        var dateSplit = result.published_at.split('T');
+                        dateSplit = dateSplit[0].split('-');
+                        var month = monthNames.indexOf(dateSplit[1])+1;
+                        var date = moment(dateSplit[2]+'-'+dateSplit[1]+'-'+dateSplit[0], "DD-MM-YYYY").format('DD MMM YYYY');
+                        var tag = '';
+                        if(result.primary_tag){
+                            tag = '<span class="tags"><a href="/tag/'+ result.primary_tag.slug +'">'+ result.primary_tag.name +'</a></span>';
+                        }
+                        var str = '\
+                        <div class="item"> \
+                         <article> \
+                           <div class="post-inner-content"> \
+                               <p> \
+                                 <a href="' + result.slug + '" class="post-title" title="' + result.title + '"><strong>' + result.title + '</strong></a> \
+                               </p> \
+                           </div> \
+                           <div class="post-meta"> \
+                               <time datetime="' + result.published_at + '">' + date + '</time>' + tag + ' \
+                               <div class="inner"> \
+                                 <a href="https://twitter.com/share?text=' + encodeURIComponent(result.title) + '&amp;url=' + url + result.slug + '" class="twitter" onclick="window.open(this.href, \'share-twitter\', \'width=550,height=235\');return false;"><i class="fab fa-twitter"></i></a> \
+                                 <a href="#" class="read-later active" data-id="' + result.id + '"><i class="far fa-bookmark"></i></a> \
+                               </div> \
+                           </div> \
+                         </article> \
+                        </div>';
+                        $('.bookmark-container').append(str);
                     });
+
+                    $('.bookmark-container').find('.read-later').each(function(index, el) {
+                        $(this).on('click', function(event) {
+                            event.preventDefault();
+                            var id = $(this).attr('data-id');
+                            if ($(this).hasClass('active')) {
+                                removeValue(readLaterPosts, id);
+                            }else{
+                                readLaterPosts.push(id);
+                            };
+                            $('.read-later[data-id="'+ id +'"]').each(function(index, el) {
+                                $(this).toggleClass('active');
+                            });
+                            Cookies.set('poveglia-read-later', readLaterPosts, { expires: 365 });
+                            bookmarks(readLaterPosts);
+                        });
+                    });
+
+                    if (results) {
+                        $('header .counter').removeClass('hidden').text(results.length);
+                    }else{
+                        $('header .counter').addClass('hidden');
+                        $('.bookmark-container').append('<p class="no-bookmarks"></p>');
+                        $('.no-bookmarks').html(noBookmarksMessage)
+                    };
+
+                })
+                .catch((err) => {
+                    console.error(err);
                 });
 
-                if (data.posts.length) {
-                    $('header .counter').removeClass('hidden').text(data.posts.length);
-                } else {
-                    $('header .counter').addClass('hidden');
-                    $('.bookmark-container').append('<p class="no-bookmarks"></p>');
-                    $('.no-bookmarks').html(noBookmarksMessage)
-                };
-
-            });
         } else {
             $('header .counter').addClass('hidden');
             $('.bookmark-container').append('<p class="no-bookmarks"></p>');

@@ -24,7 +24,7 @@
                 </div>
                 {{#if feature_image}}
                 <figure class="feature-image">
-                    <img src="{{img_url feature_image}}" alt="{{name}}">
+                    <img src="{{img_url feature_image size="l"}}" alt="{{name}}">
                 </figure>
                 {{/if}}
                 <div class="editor-content">
@@ -50,7 +50,7 @@
                             <div class="intro-meta">
                                 {{#if profile_image}}
                                 <figure class="intro-image">
-                                    <a class="img" href="{{url}}" title="{{name}}"><img src="{{img_url profile_image}}" alt="{{name}}"></a>
+                                    <a class="img" href="{{url}}" title="{{name}}"><img src="{{img_url profile_image size="xs"}}" alt="{{name}}"></a>
                                 </figure>
                                 {{/if}}
                                 <div class="inner">
@@ -68,20 +68,18 @@
                 </div>
             </article>
             <div class="comments"><a href="#" class="btn">{{t "Write a comment"}}</a></div>
-            {{#if @labs.publicAPI}}
-                {{#get "posts" limit="2" include="tags, authors" filter="id:-{{id}}+primary_tag:{{primary_tag.slug}}"}}
-                    {{#if posts}}
-                    <div class="related-posts">
-                        <h3 class="title">{{t "Related posts"}}</h3>
-                        <div class="loop">
-                            {{#foreach posts}}
-                                {{> "loop"}}
-                            {{/foreach}}
-                        </div>
+            {{#get "posts" limit="2" include="tags, authors" filter="id:-{{id}}+primary_tag:{{primary_tag.slug}}"}}
+                {{#if posts}}
+                <div class="related-posts">
+                    <h3 class="title">{{t "Related posts"}}</h3>
+                    <div class="loop">
+                        {{#foreach posts}}
+                            {{> "loop"}}
+                        {{/foreach}}
                     </div>
-                    {{/if}}
-                {{/get}}
-            {{/if}}
+                </div>
+                {{/if}}
+            {{/get}}
         </div>
     </div>
 </div>

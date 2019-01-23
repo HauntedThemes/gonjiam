@@ -5,8 +5,8 @@
                 <div class="row">
                     <div class="col-9 ml-auto">
                         <div class="blog-logo">
-                            <a href="{{@blog.url}}" title="{{@blog.title}}">
-                                {{#if @blog.logo}} <img src="{{@blog.logo}}" alt="{{@blog.title}}" /> {{else}}<span>{{@blog.title}}</span>{{/if}} 
+                            <a href="{{@site.url}}" title="{{@site.title}}">
+                                {{#if @site.logo}} <img src="{{@site.logo}}" alt="{{@site.title}}" /> {{else}}<span>{{@site.title}}</span>{{/if}} 
                             </a>
                         </div>
                     </div>
@@ -41,7 +41,6 @@
                 <div class="widget widget-menu">
                     <h3 class="title">{{t "Menu"}}</h3>
                 </div>
-                {{#if @labs.publicAPI}}
                 <div class="widget">
                     <h3 class="title">{{t "Search"}}</h3>
                     <form class="search">
@@ -56,11 +55,10 @@
                         <p class="no-bookmarks">{{{t "You haven't yet saved any bookmarks. To bookmark a post, just click <i class='far fa-bookmark'></i>."}}}</p>
                     </div>
                 </div>
-                {{/if}}
-                {{#if @blog.twitter}}
+                {{#if @site.twitter}}
                 <div class="widget">
                     <h3 class="title">{{t "Latest Tweets"}}</h3>
-                    <div class="tweets" data-twitter="{{@blog.twitter}}"></div>
+                    <div class="tweets" data-twitter="{{@site.twitter}}"></div>
                 </div>
                 {{/if}}
                 <span class="modal-inner-backdrop"></span>
