@@ -5,8 +5,8 @@
 <main id="content" class="container" role="main">
 	<div class="row">
 		<div class="col-md-12 col-lg-10 col-xl-8 mr-auto ml-auto">
-			{{#get "users" id="1" as |user|}}
-				{{#user}}
+			{{#get "authors" id="1"}}
+				{{#foreach authors}}
 					<section class="intro">
 						<div class="intro-meta">
 							{{#if profile_image}}
@@ -29,7 +29,7 @@
 							</ul>
 						</div>
 					</section>
-				{{/user}}
+				{{/foreach}}
 			{{/get}}
 			<h3 class="title">{{t "Latest posts"}}</h3>
 			<div class="loop">
